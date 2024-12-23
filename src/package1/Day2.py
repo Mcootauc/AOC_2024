@@ -1,43 +1,51 @@
 # Part 1
 total_safe_reports = 0
-curr_list = []
-total_list = []
 
 with open ('Day2.txt', 'r') as file:
     for line in file:
-        for num in line.split():
-            curr_list.append(int(num))
-        total_list.append(curr_list)
-        curr_list = []
-
-# Checks if the list is increasing safely
-def check_increasing_safety(list):
-    for i in range(len(list) - 1):
-        if list[i + 1] - list[i] <= 0 or list[i + 1] - list[i] > 3:
-            return False
-    return True
-
-# Checks if the report is decreasing safely
-def check_decreasing_safety(list):
-    for i in range(len(list) - 1):
-        if list[i + 1] - list[i] >= 0 or list[i + 1] - list[i] < -3:
-            return False
-    return True
-
-# Loops through the list of lists 
-for i in range(len(total_list)):
-    # Loops through the current list
-    for j in range(len(total_list[i]) - 1):
-        # if difference between two numbers is greater than 3 or less than 1 then report is not safe
-        if (abs(total_list[i][j + 1] - total_list[i][j]) > 3 or abs(total_list[i][j + 1] - total_list[i][j]) < 1):
-            break
-        elif (total_list[i][j + 1] - total_list[i][j] > 0): # if difference is positive then check if increasing safely
-            if check_increasing_safety(total_list[i]) == True:
-                total_safe_reports += 1
-            break
-        elif (total_list[i][j + 1] - total_list[i][j] < 0): # if difference is negative then check if decreasing safely
-            if check_decreasing_safety(total_list[i]) == True:
-                total_safe_reports += 1
-            break
+        curr_list = [int(num) for num in line.split()]
+        trend = None
+        for i in range(len(curr_list) - 1): # iterate through the report
+            diff_between_nums = curr_list[i + 1] - curr_list[i]
+            if abs(diff_between_nums) <= 3 and abs(diff_between_nums) >= 1: # if difference is less than 3 or greater than 1 and not 0
+                if trend is None: # sets the trend for the first time
+                    trend = 'increasing' if diff_between_nums > 0 else 'decreasing'
+                elif (trend == 'increasing' and diff_between_nums < 0) or \
+                (trend == 'decreasing' and diff_between_nums > 0): # if the trend changes, the report is not safe
+                    break
+            else: # if the difference is greater than 3 or 0, the report is not safe
+                break
+        else: # if the loop completes, the report is safe
+            total_safe_reports += 1
 
 print("Total Safe Reports:", total_safe_reports) # With the puzzle input, the answer is 585
+
+# # Part 2
+# total_safe_reports = 0
+
+# with open ('Day2.txt', 'r') as file:
+#     for line in file:
+#         curr_list = [int(num) for num in line.split()]
+#         trend = None
+#         removal = 0
+#         for i in range(len(curr_list) - 1): # iterate through the report
+#             diff_between_nums = curr_list[i + 1] - curr_list[i]
+#             if abs(diff_between_nums) <= 3 and abs(diff_between_nums) >= 1: # if difference is less than 3 or greater than 1 and not 0
+#                 if trend is None: # sets the trend for the first time
+#                     trend = 'increasing' if diff_between_nums > 0 else 'decreasing'
+#                 elif (trend == 'increasing' and diff_between_nums < 0 and removal == 0) or \
+#                 (trend == 'decreasing' and diff_between_nums > 0 and removal == 0): # if the trend changes, the report is not safe
+#                     removal += 1
+#                     print("removal", removal)
+#                 elif (trend == 'increasing' and diff_between_nums < 0 and removal == 1) or \
+#                 (trend == 'decreasing' and diff_between_nums > 0 and removal == 1): # if the trend changes, the report is not safe
+#                     break
+#             elif removal == 0:
+#                 removal += 1
+#                 print("removal", removal)
+#             else: # if the difference is greater than 3 or 0, the report is not safe
+#                 break
+#         else: # if the loop completes, the report is safe
+#             total_safe_reports += 1
+            
+# print("Total Safe Reports:", total_safe_reports)
