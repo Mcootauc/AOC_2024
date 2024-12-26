@@ -18,7 +18,7 @@ with open ('Day2.txt', 'r') as file:
         else: # if the loop completes, the report is safe
             total_safe_reports += 1
 
-print("P1 Total Safe Reports:", total_safe_reports) # With the puzzle input, the answer is 585
+print("(Part 1) Total Safe Reports:", total_safe_reports) # With the puzzle input, the answer is 585
 
 # # Part 2
 total_safe_reports = 0
@@ -55,4 +55,4 @@ with open ('Day2.txt', 'r') as file:
         if is_safe_with_removal(report): 
             total_safe_reports += 1
 
-print("P2 Total Safe Reports:", total_safe_reports) # With the puzzle input, the answer is 626
+print("(Part 2) Total Safe Reports:", total_safe_reports) # With the puzzle input, the answer is 626

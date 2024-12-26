@@ -17,7 +17,7 @@ list_2.sort()
 # Calculates the total distance
 total_distance = sum(abs(a - b) for a, b in zip(list_1, list_2))
 
-print(total_distance) # Answer: 2378066
+print("(Part 1) Total Distance:", total_distance) # Answer: 2378066
 
 # Day 1 Part 2:
 from collections import defaultdict
@@ -43,4 +43,4 @@ with open('Day1.txt', 'r') as file:
         else:
             continue
 
-print(similarity_score) # Answer: 18934359
+print("(Part 2) Similarty Score:", similarity_score) # Answer: 18934359
