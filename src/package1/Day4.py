@@ -92,4 +92,4 @@ with open('Day4.txt', 'r') as file:
             if i < len(whole_list) - 2 and j < len(whole_list[i]) - 2 and (whole_list[i][j] == 'M' or whole_list[i][j] == 'S') and check_diagonals(i, j, whole_list):
                 word_count += 1
     
-    print("(Part 2) MAS is found the following number of times:", word_count) # The answer is 1
+    print("(Part 2) MAS is found the following number of times:", word_count) # The answer is 1939
