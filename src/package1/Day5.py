@@ -16,6 +16,7 @@ with open("Day5.txt", 'r') as file:
             for j in range(i + 1, len(list_of_page_nums)):
                 if list_of_page_nums[j] not in dict_of_rules.get(list_of_page_nums[i], []): # Confirms that the numbers in front of the number at index i are in the list of numbers that can come after it
                     ordered = False
+                    break
         if ordered:
             total += list_of_page_nums[len(list_of_page_nums) // 2] # Add the middle number to the total
     
