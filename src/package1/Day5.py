@@ -9,7 +9,6 @@ with open("Day5.txt", 'r') as file:
         num1, num2 = int(num1), int(num2)
         dict_of_rules.setdefault(num1,[]).append(num2)
     
-    print(dict_of_rules)
     for update in updates.split("\n"):
         ordered = True 
         list_of_page_nums = [int(num) for num in update.split(",")] # Split the update into a list of numbers based on the comma
@@ -29,16 +28,14 @@ total = 0
 
 def correct_updates(start, list_of_page_nums):
     if start == len(list_of_page_nums): # If the start is equal to the length of the list of page numbers, return the middle number
-        print("yuh", list_of_page_nums[len(list_of_page_nums) // 2])
         return list_of_page_nums[len(list_of_page_nums) // 2]
-    for i in range(start, len(list_of_page_nums)): 
+    for i in range(start, len(list_of_page_nums)): # 
         for j in range(i + 1, len(list_of_page_nums)):
             if list_of_page_nums[j] not in dict_of_rules.get(list_of_page_nums[i], []): # Confirms that the numbers in front of the number at index i are in the list of numbers that can come after it
                 if (list_of_page_nums[i] in dict_of_rules.get(list_of_page_nums[j], [])): # If the number at index i can come after the number at index j, swap the numbers
     
                     list_of_page_nums[i], list_of_page_nums[j] = list_of_page_nums[j], list_of_page_nums[i] # Swap the numbers
-                    print("yuh", list_of_page_nums)
-                    return correct_updates(start + 1, list_of_page_nums) # Recursively call the function
+                    return correct_updates(start, list_of_page_nums) # Recursively call the function to sort again
     return list_of_page_nums[len(list_of_page_nums) // 2] # Recursively call the function
 
 with open("Day5.txt", 'r') as file:
@@ -58,8 +55,10 @@ with open("Day5.txt", 'r') as file:
                     start = i
                     ordered = False
                     break
+            if not ordered: # If the list is not ordered, break out of the loop
+                break
+    
         if not ordered:
-            print("start", list_of_page_nums[len(list_of_page_nums) // 2])
             total += correct_updates(start, list_of_page_nums) # Add the middle number to the total
     
-    print("(Part 1) Sum total of all correctly-ordered updates:", total)  # The answer is 4774
+    print("(Part 2) Sum total of all post-corrected updates:", total)  # The answer is 6004
